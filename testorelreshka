@@ -1,0 +1,93 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+
+int main() {
+    std::srand(std::time(0)); // Инициализация генератора случайных чисел
+
+    const int numPeople = 20;
+    const int numFlips = 200;
+    const double initialAmount = 1000;
+    std::cout<<"Количество люедй: "<<numPeople<<"\n";
+    std::cout<<"Начальная сумма: "<<numPeople*initialAmount<<"\n";
+    std::vector<double> amounts(numPeople, initialAmount);
+
+    for (int i = 0; i < numFlips; ++i) {
+        for (int j = 0; j < numPeople; ++j) {
+            if (std::rand() % 2 == 0) {
+                amounts[j] *= 1.5;
+            } else {
+                amounts[j] *= 0.6;
+            }
+        }
+    }
+    double sum = 0;
+    for (int i = 0; i < numPeople; ++i) {
+        //std::cout << "Человек " << i + 1 << ": " << amounts[i] << " единиц\n";
+        sum += amounts[i];
+    }
+    std::cout.precision(2);
+    std::cout<<"Итоговая сумма "<<sum<<"\n";
+    std::cout<<"Отношение конечной и начальной сумм "<<sum/(numPeople*initialAmount)<<"\n";
+    // цикл для подсчета людей с количеством больше 1 и меньше 1
+    int peopleMoreThan100k = 0;
+    int peopleMoreThan10k = 0;
+    int peopleMoreThan1k = 0;
+    int peopleLessThan1k = 0;
+    int peopleLessThan100 = 0;
+    int peopleLessThan10 = 0;
+    int peopleLessThan1 = 0;
+    int peopleLessThan01 = 0;
+    int peopleLessThan001 = 0;
+    int peopleLessThan0001 = 0;
+    int peopleLessThanE6 = 0;
+    for (int i = 0; i < numPeople; ++i) {
+        if (amounts[i] > 100000) {
+            peopleMoreThan100k++;
+        }
+        if (amounts[i] > 10000 && amounts[i]<100000) {
+            peopleMoreThan10k++;
+        }
+        if (amounts[i] > 1000 && amounts[i]<10000) {
+            peopleMoreThan1k++;
+        }
+        if (amounts[i]<1000 && amounts[i]>100){
+            peopleLessThan1k++;
+        }
+        if (amounts[i]<100 && amounts[i]>10){
+            peopleLessThan100++;
+        }
+        if (amounts[i]<10 && amounts[i]>1){
+            peopleLessThan10++;
+        }
+        if (amounts[i]<1 && amounts[i]>0.1){
+            peopleLessThan1++;
+        }
+        if (amounts[i]<0.1 && amounts[i]>0.01){
+            peopleLessThan01++;
+        }
+        if (amounts[i]<0.01 && amounts[i]>0.001){
+            peopleLessThan001++;
+        }
+        if (amounts[i]<0.001 && amounts[i]>1e-6){
+            peopleLessThan0001++;
+        }
+        if (amounts[i]<1e-6){
+            peopleLessThanE6++;
+        }
+    }
+
+    std::cout << "Людей с суммой больше 100k: " << peopleMoreThan100k << "\n";
+    std::cout << "Людей с суммой больше 10k: " << peopleMoreThan10k << "\n";
+    std::cout << "Людей с суммой больше 1k: " << peopleMoreThan1k << "\n";
+    std::cout << "Людей с суммой меньше 1k: " << peopleLessThan1k << "\n";
+    std::cout << "Людей с суммой меньше 100: " << peopleLessThan100 << "\n";
+    std::cout << "Людей с суммой меньше 10: " << peopleLessThan10 << "\n";
+    std::cout << "Людей с суммой меньше 1: " << peopleLessThan1 << "\n";
+    std::cout << "Людей с суммой меньше 0.1: " << peopleLessThan01 << "\n";
+    std::cout << "Людей с суммой меньше 0.01: " << peopleLessThan001 << "\n";
+    std::cout << "Людей с суммой меньше 0.001: " << peopleLessThan0001 << "\n";
+    std::cout << "Людей с суммой меньше 1e-6: " << peopleLessThanE6 << "\n";
+    return 0;
+}
